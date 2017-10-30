@@ -15,6 +15,7 @@
 		B83588451FA7C3E00025EE66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B83588431FA7C3E00025EE66 /* LaunchScreen.storyboard */; };
 		B83588501FA7C3E00025EE66 /* My_Conact_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B835884F1FA7C3E00025EE66 /* My_Conact_ListTests.swift */; };
 		B835885B1FA7C3E00025EE66 /* My_Conact_ListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B835885A1FA7C3E00025EE66 /* My_Conact_ListUITests.swift */; };
+		B83588691FA7C68D0025EE66 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83588681FA7C68D0025EE66 /* ContactsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B83588561FA7C3E00025EE66 /* My Conact ListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My Conact ListUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B835885A1FA7C3E00025EE66 /* My_Conact_ListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_Conact_ListUITests.swift; sourceTree = "<group>"; };
 		B835885C1FA7C3E00025EE66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B83588681FA7C68D0025EE66 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +81,9 @@
 		B835882C1FA7C3E00025EE66 = {
 			isa = PBXGroup;
 			children = (
-				B83588371FA7C3E00025EE66 /* My Conact List */,
-				B835884E1FA7C3E00025EE66 /* My Conact ListTests */,
-				B83588591FA7C3E00025EE66 /* My Conact ListUITests */,
+				B83588371FA7C3E00025EE66 /* My Contact List */,
+				B835884E1FA7C3E00025EE66 /* My Contact ListTests */,
+				B83588591FA7C3E00025EE66 /* My Contact ListUITests */,
 				B83588361FA7C3E00025EE66 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,7 +98,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B83588371FA7C3E00025EE66 /* My Conact List */ = {
+		B83588371FA7C3E00025EE66 /* My Contact List */ = {
 			isa = PBXGroup;
 			children = (
 				B83588381FA7C3E00025EE66 /* AppDelegate.swift */,
@@ -106,25 +108,29 @@
 				B83588411FA7C3E00025EE66 /* Assets.xcassets */,
 				B83588431FA7C3E00025EE66 /* LaunchScreen.storyboard */,
 				B83588461FA7C3E00025EE66 /* Info.plist */,
+				B83588681FA7C68D0025EE66 /* ContactsViewController.swift */,
 			);
+			name = "My Contact List";
 			path = "My Conact List";
 			sourceTree = "<group>";
 		};
-		B835884E1FA7C3E00025EE66 /* My Conact ListTests */ = {
+		B835884E1FA7C3E00025EE66 /* My Contact ListTests */ = {
 			isa = PBXGroup;
 			children = (
 				B835884F1FA7C3E00025EE66 /* My_Conact_ListTests.swift */,
 				B83588511FA7C3E00025EE66 /* Info.plist */,
 			);
+			name = "My Contact ListTests";
 			path = "My Conact ListTests";
 			sourceTree = "<group>";
 		};
-		B83588591FA7C3E00025EE66 /* My Conact ListUITests */ = {
+		B83588591FA7C3E00025EE66 /* My Contact ListUITests */ = {
 			isa = PBXGroup;
 			children = (
 				B835885A1FA7C3E00025EE66 /* My_Conact_ListUITests.swift */,
 				B835885C1FA7C3E00025EE66 /* Info.plist */,
 			);
+			name = "My Contact ListUITests";
 			path = "My Conact ListUITests";
 			sourceTree = "<group>";
 		};
@@ -263,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B835883D1FA7C3E00025EE66 /* SecondViewController.swift in Sources */,
+				B83588691FA7C68D0025EE66 /* ContactsViewController.swift in Sources */,
 				B83588391FA7C3E00025EE66 /* AppDelegate.swift in Sources */,
 				B835883B1FA7C3E00025EE66 /* FirstViewController.swift in Sources */,
 			);
