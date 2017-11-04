@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		B83588391FA7C3E00025EE66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83588381FA7C3E00025EE66 /* AppDelegate.swift */; };
-		B835883B1FA7C3E00025EE66 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B835883A1FA7C3E00025EE66 /* FirstViewController.swift */; };
-		B835883D1FA7C3E00025EE66 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B835883C1FA7C3E00025EE66 /* SecondViewController.swift */; };
 		B83588401FA7C3E00025EE66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B835883E1FA7C3E00025EE66 /* Main.storyboard */; };
 		B83588421FA7C3E00025EE66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B83588411FA7C3E00025EE66 /* Assets.xcassets */; };
 		B83588451FA7C3E00025EE66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B83588431FA7C3E00025EE66 /* LaunchScreen.storyboard */; };
 		B83588501FA7C3E00025EE66 /* My_Conact_ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B835884F1FA7C3E00025EE66 /* My_Conact_ListTests.swift */; };
 		B835885B1FA7C3E00025EE66 /* My_Conact_ListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B835885A1FA7C3E00025EE66 /* My_Conact_ListUITests.swift */; };
 		B83588691FA7C68D0025EE66 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83588681FA7C68D0025EE66 /* ContactsViewController.swift */; };
+		B835886B1FA7C8430025EE66 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B835886A1FA7C8430025EE66 /* SettingsViewController.swift */; };
+		B8F4DD421FAA62CF00FCE47F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F4DD411FAA62CF00FCE47F /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +38,6 @@
 /* Begin PBXFileReference section */
 		B83588351FA7C3E00025EE66 /* My Conact List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Conact List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B83588381FA7C3E00025EE66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B835883A1FA7C3E00025EE66 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		B835883C1FA7C3E00025EE66 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		B835883F1FA7C3E00025EE66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B83588411FA7C3E00025EE66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B83588441FA7C3E00025EE66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +49,8 @@
 		B835885A1FA7C3E00025EE66 /* My_Conact_ListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_Conact_ListUITests.swift; sourceTree = "<group>"; };
 		B835885C1FA7C3E00025EE66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B83588681FA7C68D0025EE66 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		B835886A1FA7C8430025EE66 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ../SettingsViewController.swift; sourceTree = "<group>"; };
+		B8F4DD411FAA62CF00FCE47F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +101,14 @@
 		B83588371FA7C3E00025EE66 /* My Contact List */ = {
 			isa = PBXGroup;
 			children = (
+				B835886A1FA7C8430025EE66 /* SettingsViewController.swift */,
 				B83588381FA7C3E00025EE66 /* AppDelegate.swift */,
-				B835883A1FA7C3E00025EE66 /* FirstViewController.swift */,
-				B835883C1FA7C3E00025EE66 /* SecondViewController.swift */,
 				B835883E1FA7C3E00025EE66 /* Main.storyboard */,
 				B83588411FA7C3E00025EE66 /* Assets.xcassets */,
 				B83588431FA7C3E00025EE66 /* LaunchScreen.storyboard */,
 				B83588461FA7C3E00025EE66 /* Info.plist */,
 				B83588681FA7C68D0025EE66 /* ContactsViewController.swift */,
+				B8F4DD411FAA62CF00FCE47F /* MapViewController.swift */,
 			);
 			name = "My Contact List";
 			path = "My Conact List";
@@ -268,10 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B835883D1FA7C3E00025EE66 /* SecondViewController.swift in Sources */,
+				B8F4DD421FAA62CF00FCE47F /* MapViewController.swift in Sources */,
 				B83588691FA7C68D0025EE66 /* ContactsViewController.swift in Sources */,
 				B83588391FA7C3E00025EE66 /* AppDelegate.swift in Sources */,
-				B835883B1FA7C3E00025EE66 /* FirstViewController.swift in Sources */,
+				B835886B1FA7C8430025EE66 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +514,7 @@
 				B83588611FA7C3E00025EE66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B83588621FA7C3E00025EE66 /* Build configuration list for PBXNativeTarget "My Conact ListTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +523,7 @@
 				B83588641FA7C3E00025EE66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B83588651FA7C3E00025EE66 /* Build configuration list for PBXNativeTarget "My Conact ListUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +532,7 @@
 				B83588671FA7C3E00025EE66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
