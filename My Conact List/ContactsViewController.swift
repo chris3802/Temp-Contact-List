@@ -8,7 +8,10 @@
 
 import UIKit
 
-class ContactsViewController: UIViewController {
+class ContactsViewController: UIViewController, UITextFieldDelegate, DateControllerDelegate {
+    
+    var currentContact: Contact?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     @IBOutlet weak var switchEditMode: UISwitch!
     
@@ -31,6 +34,7 @@ class ContactsViewController: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     
     @IBOutlet weak var lblBirthdate: UILabel!
+    @IBOutlet weak var txtHomeEmail: UITextField!
     @IBOutlet weak var scrollView:UIScrollView!
 
     @IBOutlet weak var btnChange: UIButton!
@@ -38,13 +42,15 @@ class ContactsViewController: UIViewController {
     
     
     @IBAction func changeEditMode(_ sender: Any) {
-        let textFields: [UITextField] = [txtFirstName, txtLastName, txtAddress, txtCity, txtState, txtZip, txtPhone, txtCell, txtEmail]
+        let textFields: [UITextField] = [txtFirstName, txtLastName, txtAddress, txtCity, txtState, txtZip, txtPhone, txtCell, txtEmail, txtHomeEmail]
         if switchEditMode.isOn {
             for textField in textFields {
                 textField.isEnabled = true
                 textField.borderStyle = UITextBorderStyle.roundedRect
             }
             btnChange.isHidden = false
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.saveContact))
         }
         else {
             for textField in textFields {
@@ -52,9 +58,29 @@ class ContactsViewController: UIViewController {
                 textField.borderStyle = UITextBorderStyle.none
             }
             btnChange.isHidden = true
+            navigationItem.rightBarButtonItem = nil
         }
 
     }
+    
+    func dateChanged(date: Date) {
+        if currentContact != nil {
+            currentContact?.birthday = date as NSDate?
+            appDelegate.saveContext()
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            lblBirthdate.text = formatter.string(from: date)
+        }
+    }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "segueContactDate") {
+            let dateController = segue.destination as! 		DateViewController
+            dateController.delegate = self
+        }
+    }
+
     
 
     
@@ -63,7 +89,40 @@ class ContactsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.changeEditMode(self)
+        
+        let textFields: [UITextField] = [txtFirstName, txtLastName, txtAddress, txtCity, txtState, txtZip, txtPhone, txtCell, txtEmail, txtHomeEmail]
+        
+        for textfield in textFields {
+            textfield.addTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldEndEditing(_:)),
+                                for: UIControlEvents.editingDidEnd)
+        }
     }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    currentContact?.contactFirstName = txtFirstName.text
+    currentContact?.contactLastName = txtLastName.text
+    currentContact?.streetAddress = txtAddress.text
+    currentContact?.city = txtCity.text
+    currentContact?.state = txtState.text
+    currentContact?.zipCode = txtZip.text
+    currentContact?.cellNumber = txtCell.text
+    currentContact?.phoneNumber = txtPhone.text
+    currentContact?.email = txtEmail.text
+    currentContact?.homeEMail = txtHomeEmail.text
+    return true
+    }
+    
+    func saveContact() {
+        if currentContact == nil {
+            let context = appDelegate.persistentContainer.viewContext
+            currentContact = Contact(context: context)
+        }
+        appDelegate.saveContext()
+        switchEditMode.isOn = false
+        changeEditMode(self)
+        
+    }
+    
     
 
     override func didReceiveMemoryWarning() {
