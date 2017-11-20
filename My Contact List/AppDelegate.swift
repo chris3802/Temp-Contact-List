@@ -22,11 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if(settings.string(forKey: Constants.kSortField) == nil){
             settings.set("city", forKey: Constants.kSortField)
         }
+        if(settings.string(forKey: Constants.kSecondSortField) == nil){
+            settings.set("contactName", forKey: Constants.kSecondSortField)
+        }
         if(settings.string(forKey: Constants.kSortDirectionAscending) == nil){
             settings.set(true, forKey: Constants.kSortDirectionAscending)
         }
         settings.synchronize()
         print("Sort field: \(settings.string(forKey: Constants.kSortField)!)")
+        print("Sort field 2: \(settings.string(forKey: Constants.kSecondSortField)!)")
         print("Sort direction: \(settings.bool(forKey: Constants.kSortDirectionAscending))")
         return true
     }

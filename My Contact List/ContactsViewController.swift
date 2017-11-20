@@ -12,6 +12,7 @@ import CoreData
 class ContactsViewController: UIViewController, UITextFieldDelegate, DateControllerDelegate {
     
     var currentContact: Contact?
+    var shouldEdit: Bool?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var sgmtEditMode: UISegmentedControl!
@@ -52,14 +53,25 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
                 lblBirthdate.text = formatter.string(from: currentContact!.birthday as! Date)
             }
         }
-        changeEditMode(self)
+
+        if shouldEdit != nil {
+            sgmtEditMode.selectedSegmentIndex = 1
+            txtName.becomeFirstResponder()
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+                                                                target: self,
+                                                                action: #selector(self.saveContact))
+        } else {
+            changeEditMode(self)
+        }
         
         let textFields: [UITextField] = [txtName, txtAddress, txtCity, txtState, txtZip,
                                          txtPhone, txtCell, txtEmail]
+        if shouldEdit == nil {
         for textfield in textFields {
             textfield.addTarget(self,
                                 action: #selector(UITextFieldDelegate.textFieldShouldEndEditing(_:)),
                                 for: UIControlEvents.editingDidEnd)
+        }
         }
         
     }

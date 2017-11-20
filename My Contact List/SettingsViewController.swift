@@ -10,10 +10,12 @@ import UIKit
 
 class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    let sortOrderItems: Array<String> = ["contactName", "city", "birthday"]
+    let sortOrderItems: Array<String> = ["ContactName", "City", "Birthday"]
     
     @IBOutlet weak var pckSortField: UIPickerView!
     @IBOutlet weak var swAscending: UISwitch!
+    @IBOutlet weak var sgmtSortOrder: UISegmentedControl!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,13 +37,40 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
           let sortField = settings.string(forKey: Constants.kSortField)
           var i = 0
           for field in sortOrderItems {
-                if(field == sortField){
+                if(field.lowercased() == sortField?.lowercased()){
                       pckSortField.selectRow(i, inComponent: 0, animated: false)
                     }
                 i += 1
               }
         pckSortField.reloadComponent(0)
+        
+        
 
+    }
+    @IBAction func onFirstOrSecondSortItemChanged(_ sender: Any) {
+                   let settings = UserDefaults.standard
+        if sgmtSortOrder.selectedSegmentIndex == 0 {
+ 
+            let sortField = settings.string(forKey: Constants.kSortField)
+            var i = 0
+            for field in sortOrderItems {
+                if(field.lowercased() == sortField?.lowercased()){
+                    pckSortField.selectRow(i, inComponent: 0, animated: false)
+                }
+                i += 1
+            }
+            pckSortField.reloadComponent(0)
+        } else {
+            let sortField = settings.string(forKey: Constants.kSecondSortField)
+            var i = 0
+            for field in sortOrderItems {
+                if(field.lowercased() == sortField?.lowercased()){
+                    pckSortField.selectRow(i, inComponent: 0, animated: false)
+                }
+                i += 1
+            }
+            pckSortField.reloadComponent(0)
+        }
     }
     
     @IBAction func sortDirectionChanged(_ sender: Any) {
@@ -74,7 +103,11 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
         print("Chosen item: \(sortOrderItems[row])")
         let sortField = sortOrderItems[row]
           let settings = UserDefaults.standard
-          settings.set(sortField, forKey: Constants.kSortField)
+        if sgmtSortOrder.selectedSegmentIndex == 0 {
+          settings.set(String(sortField.characters.prefix(1)).lowercased() + String(sortField.characters.dropFirst()), forKey: Constants.kSortField)
+        } else {
+            settings.set(String(sortField.characters.prefix(1)).lowercased() + String(sortField.characters.dropFirst()), forKey: Constants.kSecondSortField)
+        }
           settings.synchronize()
 
     }

@@ -38,6 +38,7 @@ class ContactsTableViewController: UITableViewController {
         //Read settings to enable sorting
         let settings = UserDefaults.standard
         let sortField = settings.string(forKey: Constants.kSortField)
+        let sortField2 = settings.string(forKey: Constants.kSecondSortField)
         let sortAscending = settings.bool(forKey: Constants.kSortDirectionAscending)
         //Set up Core Data Context
         let context = appDelegate.persistentContainer.viewContext
@@ -45,7 +46,9 @@ class ContactsTableViewController: UITableViewController {
         let request = NSFetchRequest<NSManagedObject>(entityName: "Contact")
         //Specify sorting
         let sortDescriptor = NSSortDescriptor(key: sortField, ascending: sortAscending)
-        let sortDescriptorArray = [sortDescriptor]
+        let sortDescriptor2 = NSSortDescriptor(key: sortField2, ascending: sortAscending)
+
+        let sortDescriptorArray = [sortDescriptor, sortDescriptor2]
         //to sort by multiple fields, add more sort descriptors to the array
         request.sortDescriptors = sortDescriptorArray
         //Execute request
@@ -73,8 +76,30 @@ class ContactsTableViewController: UITableViewController {
         
         // Configure the cell...
         let contact = contacts[indexPath.row] as? Contact
-        cell.textLabel?.text = contact?.contactName
-        cell.detailTextLabel?.text = contact?.city
+        //let name = contact?.contactName
+        //let city = contact?.city
+        
+        let nameExists = contact?.contactName != nil && (contact?.contactName?.characters.count)! > 0
+        let cityExists = contact?.city != nil && (contact?.city?.characters.count)! > 0
+        if  nameExists && cityExists {
+            cell.textLabel?.text = contact!.contactName! + " from " + contact!.city!
+        }
+        else if !nameExists && cityExists {
+            cell.textLabel?.text = "Someone from " + contact!.city!
+        } else {
+            cell.textLabel?.text = contact?.contactName
+        }
+        
+        if contact?.birthday != nil {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            cell.detailTextLabel?.text = "Born on: " + dateFormatter.string(from: contact!.birthday as! Date)
+        } else {
+            cell.detailTextLabel?.text = ""
+        }
+        
+        //cell.detailTextLabel?.text = cell.detailTextLabel?.text + "\nCell Phone: " +
+        
         cell.accessoryType = UITableViewCellAccessoryType.detailDisclosureButton
         return cell
     }
@@ -120,6 +145,19 @@ class ContactsTableViewController: UITableViewController {
             self.navigationController?.pushViewController(controller!, animated: true)
         }
         
+        let deleteHandler = { (action:UIAlertAction!) -> Void in
+            let context = self.appDelegate.persistentContainer.viewContext
+            context.delete(selectedContact!)
+            do {
+                try context.save()
+            }
+            catch {
+                fatalError("Error saving context: \(error)")
+            }
+            self.loadDataFromDatabase()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
         let alertController = UIAlertController(title: "Contact selected",
                                                 message: "Selected row: \(indexPath.row) (\(name))",
             preferredStyle: .alert)
@@ -130,8 +168,12 @@ class ContactsTableViewController: UITableViewController {
         let actionDetails = UIAlertAction(title: "Show Details",
                                           style: .default,
                                           handler: actionHandler)
+        let actionDelete = UIAlertAction(title: "Delete",
+                                          style: .destructive,
+                                          handler: deleteHandler)
         alertController.addAction(actionCancel)
         alertController.addAction(actionDetails)
+        alertController.addAction(actionDelete)
         present(alertController, animated: true, completion: nil)
     }
     
@@ -161,6 +203,11 @@ class ContactsTableViewController: UITableViewController {
             
             let selectedContact = contacts[selectedRow!] as? Contact
             contactController?.currentContact = selectedContact!
+        }
+        if segue.identifier == "AddContact" {
+            let contactController = segue.destination as? ContactsViewController
+            
+            contactController?.shouldEdit = true
         }
     }
     
