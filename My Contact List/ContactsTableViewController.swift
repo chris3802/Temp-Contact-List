@@ -135,7 +135,7 @@ class ContactsTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedContact = contacts[indexPath.row] as? Contact
-        let name = selectedContact!.contactName!
+        let name = selectedContact?.contactName
         let actionHandler = { (action:UIAlertAction!) -> Void in
             //            self.performSegue(withIdentifier: "EditContact", sender: tableView.cellForRow(at: indexPath))
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
