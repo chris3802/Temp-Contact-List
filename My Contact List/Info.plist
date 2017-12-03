@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Let me use your camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Let me access your photos</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location is needed to show you your current latitude and longitude.</string>
 	<key>CFBundleDevelopmentRegion</key>

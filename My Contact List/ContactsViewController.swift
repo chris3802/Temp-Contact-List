@@ -8,8 +8,11 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
-class ContactsViewController: UIViewController, UITextFieldDelegate, DateControllerDelegate {
+
+class ContactsViewController: UIViewController, UITextFieldDelegate, DateControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    @IBOutlet weak var btnCamera: UIButton!
     
     var currentContact: Contact?
     var shouldEdit: Bool?
@@ -20,6 +23,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var txtCity: UITextField!
     @IBOutlet weak var txtState: UITextField!
+    @IBOutlet weak var imgContactPicture: UIImageView!
     @IBOutlet weak var txtZip: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtCell: UITextField!
@@ -33,6 +37,66 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
     //               super.init(coder: aDecoder);
     //
     //    }
+    
+    
+    @IBAction func changePicture(_ sender: Any) {
+        
+        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) !=  AVAuthorizationStatus.authorized
+        {   //Camera not authorized
+            let alertController = UIAlertController(title: "Camera Access Denied",
+                                                    message: "In order to take pictures, you need to allow the app to access the camera in the Settings.",
+                                                    preferredStyle: .alert)
+            let actionSettings = UIAlertAction(title: "Open Settings",
+                                               style: .default) {action in
+                                                self.openSettings()
+            }
+            let actionCancel = UIAlertAction(title: "Cancel",
+                                             style: .cancel,
+                                             handler: nil)
+            alertController.addAction(actionSettings)
+            alertController.addAction(actionCancel)
+            present(alertController, animated: true, completion: nil)
+        }
+        else
+        {   // Already Authorized
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                let cameraController = UIImagePickerController()
+                cameraController.sourceType = .camera
+                cameraController.cameraCaptureMode = .photo
+                cameraController.delegate = self
+                cameraController.allowsEditing = true
+                self.present(cameraController, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
+    func openSettings(){
+        if let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(settingsUrl)
+            }
+        }
+    }
+    
+    
+    @IBOutlet weak var lblPhone: UILabel!
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            imgContactPicture.contentMode = .scaleAspectFit
+            imgContactPicture.image = image
+            if currentContact == nil {
+                let context = appDelegate.persistentContainer.viewContext
+                currentContact = Contact(context: context)
+            }
+            currentContact?.image = NSData(data: UIImageJPEGRepresentation(image, 1.0)!)
+        }
+        dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +116,19 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
             if(currentContact!.birthday != nil){
                 lblBirthdate.text = formatter.string(from: currentContact!.birthday as! Date)
             }
+            if let imageData = currentContact?.image as? Data {
+                imgContactPicture.image = UIImage(data: imageData)
+            }
+            
+            let longPress = UILongPressGestureRecognizer.init(target: self,
+                                                              action: #selector(callPhone(gesture:)))
+            lblPhone.addGestureRecognizer(longPress)
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) != true{
+                btnCamera.isHidden = true
+                btnCamera.isEnabled = false
+            }
+            
         }
 
         if shouldEdit != nil {
@@ -76,6 +153,17 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
         
     }
     
+    func callPhone(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            let number = txtPhone.text
+            if number!.characters.count > 0 { //Don't call blank numbers
+                let url = NSURL(string: "telprompt://\(number!)")
+                UIApplication.shared.open(url as! URL, options: [:], completionHandler: nil)
+                print("Calling Phone Number: \(url!)")
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -84,6 +172,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.registerKeyboardNotifications()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -109,6 +198,8 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
                 textField.isEnabled = false
                 textField.borderStyle = UITextBorderStyle.none
             }
+            btnCamera.isHidden = true
+            btnCamera.isEnabled = false
             btnChange.isHidden = true
             navigationItem.rightBarButtonItem = nil
             
@@ -119,9 +210,14 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, DateControl
                 textField.borderStyle = UITextBorderStyle.roundedRect
             }
             btnChange.isHidden = false
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                btnCamera.isHidden = false
+                btnCamera.isEnabled = true
+            }
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                                 target: self,
                                                                 action: #selector(self.saveContact))
+            
         }
     }
     

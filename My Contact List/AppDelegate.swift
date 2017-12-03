@@ -8,9 +8,12 @@
 
 import UIKit
 import CoreData
+import CoreMotion
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    lazy var motionManager = CMMotionManager()
     
     var window: UIWindow?
     

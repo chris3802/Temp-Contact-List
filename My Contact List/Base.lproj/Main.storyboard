@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CyM-O6-94X">
-                                <rect key="frame" x="115.5" y="64" width="89" height="29"/>
+                                <rect key="frame" x="116" y="64" width="89" height="29"/>
                                 <segments>
                                     <segment title="View"/>
                                     <segment title="Edit"/>
@@ -36,7 +36,7 @@
                                 <rect key="frame" x="0.0" y="107" width="320" height="412"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="DQE-hz-bIj">
-                                        <rect key="frame" x="8" y="0.0" width="300" height="275.5"/>
+                                        <rect key="frame" x="8" y="0.0" width="300" height="390.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0Pe-Re-hAY">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
@@ -135,7 +135,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="N4T-x3-V9s">
                                                         <rect key="frame" x="165" y="0.0" width="135" height="50.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Phone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B29-bV-0G2">
+                                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home Phone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B29-bV-0G2">
                                                                 <rect key="frame" x="0.0" y="0.0" width="135" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -178,6 +178,25 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FbT-m4-s0X">
+                                                <rect key="frame" x="0.0" y="290.5" width="300" height="100"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fgw-Kj-aoJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="N9M-CE-kGQ"/>
+                                                            <constraint firstAttribute="height" constant="100" id="XkI-ym-Olg"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aby-9Z-d1E">
+                                                        <rect key="frame" x="100" y="35" width="200" height="30"/>
+                                                        <state key="normal" title="Take Picture"/>
+                                                        <connections>
+                                                            <action selector="changePicture:" destination="9pv-A4-QxB" eventType="touchUpInside" id="ucc-pE-gZY"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -202,8 +221,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="nLe-3E-uQf"/>
                     <connections>
+                        <outlet property="btnCamera" destination="aby-9Z-d1E" id="VQP-aL-252"/>
                         <outlet property="btnChange" destination="8o8-eZ-0gV" id="0yi-r1-2R3"/>
+                        <outlet property="imgContactPicture" destination="Fgw-Kj-aoJ" id="Guh-z3-JVW"/>
                         <outlet property="lblBirthdate" destination="gOL-kr-jdK" id="dmP-jZ-EIz"/>
+                        <outlet property="lblPhone" destination="B29-bV-0G2" id="HWc-dn-pfT"/>
                         <outlet property="scrollView" destination="7um-6A-WTd" id="rGb-1v-TJV"/>
                         <outlet property="sgmtEditMode" destination="CyM-O6-94X" id="Qcf-9w-vaX"/>
                         <outlet property="txtAddress" destination="cAw-xA-waW" id="0d1-oe-Kdn"/>
@@ -307,16 +329,26 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwn-V5-nrp">
+                                <rect key="frame" x="278" y="20" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ddb-cg-Pun" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="JJg-l9-Lo2"/>
+                            <constraint firstItem="bwn-V5-nrp" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="mau-SU-Cqc"/>
+                            <constraint firstAttribute="trailing" secondItem="bwn-V5-nrp" secondAttribute="trailing" id="oGZ-6K-mxq"/>
                             <constraint firstItem="Ddb-cg-Pun" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="piO-wD-3iX"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="sample-834-bolt" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="lblBattery" destination="bwn-V5-nrp" id="kFC-Eg-r0D"/>
                         <outlet property="pckSortField" destination="SJ5-Ch-XRt" id="yzs-82-daA"/>
+                        <outlet property="settingsView" destination="QS5-Rx-YEW" id="RQn-zX-dTL"/>
                         <outlet property="sgmtSortOrder" destination="Mck-yp-bcT" id="Xq3-Pd-PPU"/>
                         <outlet property="swAscending" destination="rNT-CP-Ty4" id="fv0-4K-G05"/>
                     </connections>
